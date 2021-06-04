@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  frontend_test:
+    docker:
+      - image: circleci/node:8.10
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: cd client && npm install && npm run test
+  backend_test:
+    docker:
+      - image: circleci/node:8.10
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: cd server && npm install && npm run test
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - backend_test
